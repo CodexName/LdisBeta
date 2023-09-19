@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Group</title>
+    <style>
+        /* Общие стили */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        /* Заголовок группы */
+        .group-header {
+            background-color: #0088cc;
+            color: #ffffff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Список сообщений */
+        .message-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Каждое сообщение */
+        .message {
+            background-color: #ffffff;
+            border: 1px solid #d1d1d1;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* Имя отправителя */
+        .message-sender {
+            font-weight: bold;
+        }
+
+        /* Текст сообщения */
+        .message-text {
+            margin-top: 5px;
+        }
+
+        /* Поле для ввода сообщения */
+        .message-input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-top: 1px solid #d1d1d1;
+        }
+
+        /* Кнопка отправки сообщения */
+        .send-button {
+            background-color: #0088cc;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="group-header">
+        <h1>Название группы</h1>
+    </div>
+    <ul class="message-list">
+        <li class="message">
+            <span class="message-sender">Имя пользователя 1:</span>
+            <p class="message-text">Привет, как дела?</p>
+        </li>
+        <li class="message">
+            <span class="message-sender">Имя пользователя 2:</span>
+            <p class="message-text">Привет, все отлично!</p>
+        </li>
+        <!-- Другие сообщения здесь -->
+    </ul>
+    <input type="text" class="message-input" placeholder="Введите сообщение...">
+    <button class="send-button">Отправить</button>
+</body>

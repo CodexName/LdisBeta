@@ -3,6 +3,7 @@ using LdisDirty.Models;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.Extensions.Caching.Memory;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 
@@ -12,23 +13,33 @@ namespace LdisDirty.SignalREngine
     {
         private IHttpContextAccessor _httpContextAccess;
         private DbContextApplication _Context;
-        public ChatsHandler(IHttpContextAccessor contexthttp,DbContextApplication context)
+        private IMemoryCache _Cache; 
+        public ChatsHandler(IHttpContextAccessor contexthttp,DbContextApplication context,IMemoryCache cache)
         {
             _httpContextAccess = contexthttp;
             _Context = context;
+            _Cache = cache;
         }
         public async Task Send(string message,string group,string name)
         {
-            var IdGroup = _Context.Chats.AsNoTracking().FirstOrDefault(x => x.Name == group);
-
-            DateTime timesendMessage = DateTime.Now;
+            int Id = (int)_Cache.Get("GroupKeyId");
+            Chat Group = null;
+            if (Id == null)
+            {
+                Group = _Context.Chats.AsNoTracking().FirstOrDefault(x => x.Name == group);
+                int IdGroup = Group.Id;
+                _Cache.Set("GroupKeyId", IdGroup, new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(4)));
+                Send(message,group,name);
+            }           
+            DateTime timesendMessage = DateTime.Now;           
             var messageInstance = new Message
             { 
                 Text = message,
                 DateMessage = timesendMessage,
-                ForeignChatId = 
+                ForeignChatId =  Id
             };
-
+            _Context.Add(messageInstance);
+            _Context.SaveChanges();
             Clients.Group(group).SendAsync("receive",message,name);
         }
         public async Task Enter(string username,string groupname)

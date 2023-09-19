@@ -23,6 +23,18 @@ namespace LdisDirty.Controllers
             return View();
         }
 
+        public IActionResult Registration ()
+        {
+            return View("Views/RegLog/Registration.cshtml");
+        }
+
+        public IActionResult LoginView ()
+        {
+            return View("");
+        }
+
+     
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
