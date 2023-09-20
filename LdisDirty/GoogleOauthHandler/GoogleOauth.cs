@@ -74,13 +74,9 @@ namespace LdisDirty.GoogleOauthHandler
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                 await HttpContext.SignInAsync(claimsPrincipal);
+            }
 
-            }
-            else
-            {
-                return View();
-            }
-            return Ok();
+            return View("/Views/Home/Index.cshtml");
         }
      
     }

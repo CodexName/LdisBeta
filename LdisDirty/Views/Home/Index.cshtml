@@ -1,8 +1,70 @@
-﻿
+﻿@model List<Chat>
+<head>
+    <style>
+        /* Стили для плитки ссылки */
+        .tile {
+            width: 200px; /* Ширина плитки */
+            height: 150px; /* Высота плитки */
+            background-color: #3498db; /* Цвет фона */
+            color: #fff; /* Цвет текста */
+            text-align: center; /* Выравнивание текста по центру */
+            padding: 20px; /* Внутренний отступ */
+            margin: 10px; /* Внешний отступ */
+            border-radius: 5px; /* Закругленные углы */
+            text-decoration: none; /* Убираем подчеркивание ссылки */
+            display: inline-block; /* Размещаем плитки в одну строку */
+        }
+
+            /* Стиль при наведении на плитку */
+            .tile:hover {
+                background-color: #2980b9; /* Изменение цвета при наведении */
+            }
+    </style>
+</head>
 <div>
     <h1>Все чаты</h1>
+    @foreach (var item in Model)
+    {<a></a>
+        <a href="javascript:void(0);" onclick="submitForm('@item.Name')">Connect to @item.Name</a>
 
+        <form id="myForm" style="display: none;" asp-controller="Home" asp-action="ConnectToHubHandler" method="post">
+            <input type="hidden" name="namegroup" id="namegroup" />
+        </form>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    }    
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/path/to/signalr.js"></script> <!-- Подключите библиотеку SignalR -->
+<script>
+    $(document).ready(function () {
+        // Обработчик клика на ссылке
+        $("#connectToChatLink").click(function (e) {
+            e.preventDefault(); // Отменяем стандартное действие ссылки
+
+            // Получаем имя группы (можете задать его по-разному)
+            var groupName = "YourGroupName"; // Пример: "chat"
+
+            // Подключение к SignalR хабу
+            var connection = new signalR.HubConnectionBuilder()
+                .withUrl("/chat") // Путь к хабу
+                .build();
+
+            connection.start()
+                .then(function () {
+                    // После успешного подключения вызываем метод Enter
+                    connection.invoke("Enter", "Username", groupName)
+                        .catch(function (err) {
+                            console.error(err);
+                        });
+                })
+                .catch(function (err) {
+                    console.error(err);
+                });
+        });
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
 <a asp-controller="Home" asp-action="Registration">Registration</a>
 <a asp-controller="" asp-action="">Login</a>
 

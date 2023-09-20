@@ -1,0 +1,29 @@
+﻿@model LdisDirty.Models.LoginModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <form asp-controller="Home" asp-action="LoginHandler">
+        <div>
+            <label for="email">Email:</label>
+            <input asp-for="Email"></input>
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input asp-for="Password"></input>
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div>
+           <button type="submit">Submit</button>
+        </div>
+    </form>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

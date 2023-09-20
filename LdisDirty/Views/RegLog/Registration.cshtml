@@ -1,27 +1,36 @@
-﻿<!DOCTYPE html>
+﻿@model LdisDirty.Models.User
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Регистрация</title>
+
 </head>
 <body>
     <h1>Регистрация</h1>
-    <form action="/register" method="post">
-        <label for="username">Имя пользователя:</label>
-        <input type="text" id="username" name="username" required><br><br>
+    <form asp-controller="Home" asp-action="RegistrationHandler">
+        <div>
+            <label for="username">Ник пользователя:</label>
+            <input asp-for="Name"></input>
+            <span asp-validation-for="Name"></span>
 
-        <label for="email">Электронная почта:</label>
-        <input type="email" id="email" name="email" required><br><br>
 
-        <label for="password">Пароль:</label>
-        <input type="password" id="password" name="password" required><br><br>
+            <label for="email">Электронная почта:</label>
+            <input asp-for="Email"></input>
+            <span asp-validation-for="Email"></span>
 
-        <input type="submit" value="Зарегистрироваться">
+
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required><br><br>
+            <span asp-validation-for="Password"></span>
+            <button type="submit">Submit</button>
+        </div>
     </form>
 
     <a asp-controller="Home" asp-action="LoginView">Login</a>
 
     <a asp-controller="GoogleOauth" asp-action="RedirectToOauthServer">Google Registration</a>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 </body>
 </html>

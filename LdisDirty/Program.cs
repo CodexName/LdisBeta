@@ -1,4 +1,5 @@
 using LdisDirty.DataBaseContext;
+using LdisDirty.Services;
 using LdisDirty.Services.GoogleOAuthServices;
 using LdisDirty.Services.RealizationServices;
 using LdisDirty.SignalREngine;
@@ -19,6 +20,8 @@ builder.Services.AddTransient<IS256CoderService,S256Realize>();
 builder.Services.AddTransient<IGetAuthServerUrlService, GetUrlAuthServer>();
 builder.Services.AddTransient<IRequestSendService, SendRequest>();
 builder.Services.AddTransient<IGetUserDataService, GetUserDataRealize>();
+builder.Services.AddTransient<IChatHandlerService, ChatHandlerRealize>();
+builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
